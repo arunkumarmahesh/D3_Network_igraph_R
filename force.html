@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body> 
+ <style>
+.link {
+stroke: #666;
+opacity: 0.9;
+stroke-width: 1.5px;
+}
+.node circle {
+stroke: #fff;
+opacity: 0.9;
+stroke-width: 1.5px;
+}
+.node:not(:hover) .nodetext {
+display: none;
+}
+text {
+font: 7px serif;
+opacity: 0.9;
+pointer-events: none;
+}
+</style>
+
+<script src=http://d3js.org/d3.v3.min.js></script>
+
+<script> 
+ var links = [ { "source" : 0, "target" : 72 }, { "source" : 0, "target" : 73 }, { "source" : 1, "target" : 74 }, { "source" : 1, "target" : 75 }, { "source" : 1, "target" : 72 }, { "source" : 2, "target" : 72 }, { "source" : 2, "target" : 76 }, { "source" : 2, "target" : 77 }, { "source" : 2, "target" : 78 }, { "source" : 3, "target" : 72 }, { "source" : 3, "target" : 75 }, { "source" : 4, "target" : 72 }, { "source" : 4, "target" : 79 }, { "source" : 5, "target" : 72 }, { "source" : 5, "target" : 80 }, { "source" : 6, "target" : 81 }, { "source" : 6, "target" : 74 }, { "source" : 7, "target" : 82 }, { "source" : 7, "target" : 83 }, { "source" : 8, "target" : 77 }, { "source" : 8, "target" : 84 }, { "source" : 9, "target" : 72 }, { "source" : 9, "target" : 73 }, { "source" : 10, "target" : 85 }, { "source" : 10, "target" : 86 }, { "source" : 11, "target" : 87 }, { "source" : 11, "target" : 72 }, { "source" : 12, "target" : 88 }, { "source" : 12, "target" : 89 }, { "source" : 13, "target" : 74 }, { "source" : 13, "target" : 90 }, { "source" : 14, "target" : 91 }, { "source" : 14, "target" : 72 }, { "source" : 15, "target" : 92 }, { "source" : 15, "target" : 89 }, { "source" : 16, "target" : 93 }, { "source" : 16, "target" : 94 }, { "source" : 17, "target" : 72 }, { "source" : 17, "target" : 95 }, { "source" : 18, "target" : 76 }, { "source" : 18, "target" : 72 }, { "source" : 19, "target" : 91 }, { "source" : 19, "target" : 96 }, { "source" : 20, "target" : 72 }, { "source" : 20, "target" : 89 }, { "source" : 20, "target" : 97 }, { "source" : 21, "target" : 84 }, { "source" : 21, "target" : 93 }, { "source" : 22, "target" : 84 }, { "source" : 22, "target" : 93 }, { "source" : 23, "target" : 92 }, { "source" : 23, "target" : 89 }, { "source" : 28, "target" : 93 }, { "source" : 28, "target" : 94 }, { "source" : 25, "target" : 72 }, { "source" : 25, "target" : 85 }, { "source" : 26, "target" : 86 }, { "source" : 26, "target" : 91 }, { "source" : 27, "target" : 72 }, { "source" : 27, "target" : 73 }, { "source" : 28, "target" : 74 }, { "source" : 28, "target" : 98 }, { "source" : 28, "target" : 99 }, { "source" : 28, "target" : 72 }, { "source" : 28, "target" : 74 }, { "source" : 29, "target" : 72 }, { "source" : 29, "target" : 100 }, { "source" : 29, "target" : 81 }, { "source" : 30, "target" : 84 }, { "source" : 30, "target" : 77 }, { "source" : 31, "target" : 72 }, { "source" : 31, "target" : 101 }, { "source" : 32, "target" : 72 }, { "source" : 32, "target" : 102 }, { "source" : 33, "target" : 81 }, { "source" : 33, "target" : 93 }, { "source" : 34, "target" : 74 }, { "source" : 34, "target" : 96 }, { "source" : 35, "target" : 72 }, { "source" : 35, "target" : 93 }, { "source" : 36, "target" : 103 }, { "source" : 36, "target" : 84 }, { "source" : 37, "target" : 84 }, { "source" : 37, "target" : 104 }, { "source" : 38, "target" : 105 }, { "source" : 38, "target" : 72 }, { "source" : 39, "target" : 106 }, { "source" : 39, "target" : 105 }, { "source" : 40, "target" : 107 }, { "source" : 40, "target" : 77 }, { "source" : 40, "target" : 81 }, { "source" : 41, "target" : 108 }, { "source" : 41, "target" : 72 }, { "source" : 42, "target" : 72 }, { "source" : 42, "target" : 108 }, { "source" : 43, "target" : 72 }, { "source" : 43, "target" : 109 }, { "source" : 44, "target" : 104 }, { "source" : 44, "target" : 81 }, { "source" : 44, "target" : 110 }, { "source" : 44, "target" : 111 }, { "source" : 45, "target" : 72 }, { "source" : 45, "target" : 108 }, { "source" : 46, "target" : 112 }, { "source" : 46, "target" : 72 }, { "source" : 47, "target" : 92 }, { "source" : 48, "target" : 72 }, { "source" : 48, "target" : 108 }, { "source" : 49, "target" : 72 }, { "source" : 49, "target" : 87 }, { "source" : 50, "target" : 77 }, { "source" : 50, "target" : 89 }, { "source" : 51, "target" : 113 }, { "source" : 51, "target" : 72 }, { "source" : 52, "target" : 92 }, { "source" : 52, "target" : 89 }, { "source" : 53, "target" : 92 }, { "source" : 53, "target" : 89 }, { "source" : 54, "target" : 72 }, { "source" : 54, "target" : 75 }, { "source" : 55, "target" : 72 }, { "source" : 55, "target" : 75 }, { "source" : 55, "target" : 74 }, { "source" : 56, "target" : 74 }, { "source" : 56, "target" : 81 }, { "source" : 56, "target" : 114 }, { "source" : 57, "target" : 72 }, { "source" : 57, "target" : 75 }, { "source" : 58, "target" : 72 }, { "source" : 58, "target" : 73 }, { "source" : 59, "target" : 115 }, { "source" : 60, "target" : 115 }, { "source" : 61, "target" : 72 }, { "source" : 61, "target" : 74 }, { "source" : 62, "target" : 72 }, { "source" : 62, "target" : 115 }, { "source" : 63, "target" : 116 }, { "source" : 63, "target" : 105 }, { "source" : 64, "target" : 106 }, { "source" : 64, "target" : 74 }, { "source" : 65, "target" : 91 }, { "source" : 65, "target" : 72 }, { "source" : 66, "target" : 95 }, { "source" : 66, "target" : 117 }, { "source" : 66, "target" : 81 }, { "source" : 67, "target" : 79 }, { "source" : 67, "target" : 72 }, { "source" : 67, "target" : 93 }, { "source" : 68, "target" : 95 }, { "source" : 68, "target" : 89 }, { "source" : 69, "target" : 106 }, { "source" : 69, "target" : 72 }, { "source" : 70, "target" : 72 }, { "source" : 70, "target" : 108 }, { "source" : 70, "target" : 74 }, { "source" : 71, "target" : 72 }, { "source" : 71, "target" : 91 } ] ; 
+ var nodes = [ { "name" : "MB102029", "group" : 0 }, { "name" : "CANTATA-D", "group" : 1 }, { "name" : "SYR-322MET_302", "group" : 2 }, { "name" : "CANTATA-MSU", "group" : 3 }, { "name" : "1218.3599999999999", "group" : 4 }, { "name" : "Fouqueray P 2014", "group" : 5 }, { "name" : "MB102-054", "group" : 6 }, { "name" : "Lukashevich V 2014", "group" : 7 }, { "name" : "Ma J 2014", "group" : 8 }, { "name" : "Mudaliar S 2014", "group" : 9 }, { "name" : "Sawada T 2014", "group" : 10 }, { "name" : "D1680L00006", "group" : 11 }, { "name" : "EFFICACY", "group" : 12 }, { "name" : "SUCCESS-2", "group" : 13 }, { "name" : "Hasche H 1999", "group" : 14 }, { "name" : "BEGIN LOW VOLUME", "group" : 15 }, { "name" : "Berndt-Zipfel C 2013", "group" : 16 }, { "name" : "Exenatide-MC-GWBJ", "group" : 17 }, { "name" : "SYR-322/CCT-901", "group" : 18 }, { "name" : "GREAN", "group" : 19 }, { "name" : "2006-006573-24", "group" : 20 }, { "name" : "Rizzo MR 2004", "group" : 21 }, { "name" : "Rizzo MR 2005", "group" : 22 }, { "name" : "BEGIN", "group" : 23 }, { "name" : "Derosa G 2014", "group" : 24 }, { "name" : "Johnston PS 1994", "group" : 25 }, { "name" : "Zheng F 2013", "group" : 26 }, { "name" : "Ji L 2014", "group" : 27 }, { "name" : "Osonoi T 2014", "group" : 28 }, { "name" : "INT131-007", "group" : 29 }, { "name" : "NovoNorm 301 Chunlin Li", "group" : 30 }, { "name" : "Inagaki N 2014", "group" : 31 }, { "name" : "3000-A6", "group" : 32 }, { "name" : "pioRAGE", "group" : 33 }, { "name" : "EDGE", "group" : 34 }, { "name" : "Nyback-Nakell A 2014", "group" : 35 }, { "name" : "AGEE-3705", "group" : 36 }, { "name" : "Yngen M 2006", "group" : 37 }, { "name" : "ELEGANT", "group" : 38 }, { "name" : "AWARD-6", "group" : 39 }, { "name" : "Erem C 2014", "group" : 40 }, { "name" : "EMPA-REG MET", "group" : 41 }, { "name" : "EMPA-REG METSU", "group" : 42 }, { "name" : "1941-CL-0070", "group" : 43 }, { "name" : "Maffioli P 2013", "group" : 44 }, { "name" : "EMPA-REG MDI", "group" : 45 }, { "name" : "PRESS VI", "group" : 46 }, { "name" : "BEGIN: Once Simple Use", "group" : 47 }, { "name" : "EMPA-REG RENAL", "group" : 48 }, { "name" : "ESENDI", "group" : 49 }, { "name" : "GLORY", "group" : 50 }, { "name" : "PDY6797", "group" : 51 }, { "name" : "BEGIN EASY AM", "group" : 52 }, { "name" : "BEGIN EASY PM", "group" : 53 }, { "name" : "CR018373", "group" : 54 }, { "name" : "CANTATA-MP", "group" : 55 }, { "name" : "0431-102, 2008_522", "group" : 56 }, { "name" : "TA-7284-05", "group" : 57 }, { "name" : "D1690C00019", "group" : 58 }, { "name" : "JapicCTI-101351", "group" : 59 }, { "name" : "JapicCTI-101352", "group" : 60 }, { "name" : "SITA001", "group" : 61 }, { "name" : "Kaku K 2014", "group" : 62 }, { "name" : "HARMONY 7", "group" : 63 }, { "name" : "AWARD-5", "group" : 64 }, { "name" : "Van Gaal L 1991", "group" : 65 }, { "name" : "CONFIDENCE", "group" : 66 }, { "name" : "1218.5", "group" : 67 }, { "name" : "DURATION-3", "group" : 68 }, { "name" : "13631", "group" : 69 }, { "name" : "EMPA-REG Mono", "group" : 70 }, { "name" : "Wolever TM 1995", "group" : 71 }, { "name" : "placebo", "group" : 72 }, { "name" : "dapagliflozin", "group" : 73 }, { "name" : "sitagliptin", "group" : 74 }, { "name" : "canagliflozin", "group" : 75 }, { "name" : "alogliptin", "group" : 76 }, { "name" : "metformin", "group" : 77 }, { "name" : "alogliptin+metformin", "group" : 78 }, { "name" : "linagliptin", "group" : 79 }, { "name" : "imeglimin", "group" : 80 }, { "name" : "pioglitazone", "group" : 81 }, { "name" : "vildagliptin+glimepiride", "group" : 82 }, { "name" : "placebo+glimepiride", "group" : 83 }, { "name" : "repaglinide", "group" : 84 }, { "name" : "miglitol", "group" : 85 }, { "name" : "nateglinide", "group" : 86 }, { "name" : "saxagliptin", "group" : 87 }, { "name" : "insulin detemir", "group" : 88 }, { "name" : "insulin glargine", "group" : 89 }, { "name" : "voglibose, miglitol", "group" : 90 }, { "name" : "acarbose", "group" : 91 }, { "name" : "insulin degludec", "group" : 92 }, { "name" : "glimepiride", "group" : 93 }, { "name" : "vildagliptin", "group" : 94 }, { "name" : "exenatide", "group" : 95 }, { "name" : "voglibose", "group" : 96 }, { "name" : "NPH insulin", "group" : 97 }, { "name" : "mitiglinide", "group" : 98 }, { "name" : "mitiglinide+voglibose", "group" : 99 }, { "name" : "INT131", "group" : 100 }, { "name" : "SYR-472", "group" : 101 }, { "name" : "teneligliptin", "group" : 102 }, { "name" : "repaglinide+metformin", "group" : 103 }, { "name" : "glibenclamide", "group" : 104 }, { "name" : "liraglutide", "group" : 105 }, { "name" : "dulaglutide", "group" : 106 }, { "name" : "gliclazide", "group" : 107 }, { "name" : "empagliflozin", "group" : 108 }, { "name" : "ipragliflozin", "group" : 109 }, { "name" : "glibenclamide+rosuvastatin", "group" : 110 }, { "name" : "pioglitazone+rosuvastatin", "group" : 111 }, { "name" : "saroglitazar", "group" : 112 }, { "name" : "lixisenatide", "group" : 113 }, { "name" : "sitagliptin+pioglitazone", "group" : 114 }, { "name" : "tofogliflozin", "group" : 115 }, { "name" : "albiglutide", "group" : 116 }, { "name" : "premixed insulin", "group" : 117 } ] ; 
+ var width = 1000
+height = 1000;
+
+var color = d3.scale.category20();
+
+var force = d3.layout.force()
+.nodes(d3.values(nodes))
+.links(links)
+.size([width, height])
+.linkDistance(50)
+.charge(-120)
+.on("tick", tick)
+.start();
+
+var svg = d3.select("body").append("svg")
+.attr("width", width)
+.attr("height", height);
+
+var link = svg.selectAll(".link")
+.data(force.links())
+.enter().append("line")
+.attr("class", "link")
+.style("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+var node = svg.selectAll(".node")
+.data(force.nodes())
+.enter().append("g")
+.attr("class", "node")
+.style("fill", function(d) { return color(d.group); })
+.style("opacity", 0.9)
+.on("mouseover", mouseover)
+.on("mouseout", mouseout)
+.call(force.drag);
+
+node.append("circle")
+.attr("r", 6)
+
+node.append("svg:text")
+.attr("class", "nodetext")
+.attr("dx", 12)
+.attr("dy", ".35em")
+.text(function(d) { return d.name });
+
+function tick() {
+link
+.attr("x1", function(d) { return d.source.x; })
+.attr("y1", function(d) { return d.source.y; })
+.attr("x2", function(d) { return d.target.x; })
+.attr("y2", function(d) { return d.target.y; });
+
+node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+}
+
+function mouseover() {
+d3.select(this).select("circle").transition()
+.duration(750)
+.attr("r", 16);
+d3.select(this).select("text").transition()
+.duration(750)
+.attr("x", 13)
+.style("stroke-width", ".5px")
+.style("font", "17.5px serif")
+.style("opacity", 1);
+}
+
+function mouseout() {
+d3.select(this).select("circle").transition()
+.duration(750)
+.attr("r", 8);
+}
+
+</script>
+ </body>

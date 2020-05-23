@@ -1,0 +1,132 @@
+
+        <!DOCTYPE html>
+        <meta charset="utf-8">
+        <body> 
+ <style>
+.link {
+stroke: silver;
+opacity: 0.9;
+stroke-width: 1.5px;
+}
+.node circle {
+stroke: #fff;
+opacity: 0.9;
+stroke-width: 1.5px;
+}
+text {
+font: 7px serif;
+opacity: 0.9;
+pointer-events: none;
+}
+</style>
+
+<script src=http://d3js.org/d3.v3.min.js></script>
+
+<script> 
+ var links = [ { "source" : "MB102029", "target" : "placebo" }, { "source" : "MB102029", "target" : "dapagliflozin" }, { "source" : "CANTATA-D", "target" : "sitagliptin" }, { "source" : "CANTATA-D", "target" : "canagliflozin" }, { "source" : "CANTATA-D", "target" : "placebo" }, { "source" : "SYR-322MET_302", "target" : "placebo" }, { "source" : "SYR-322MET_302", "target" : "alogliptin" }, { "source" : "SYR-322MET_302", "target" : "metformin" }, { "source" : "SYR-322MET_302", "target" : "alogliptin+metformin" }, { "source" : "CANTATA-MSU", "target" : "placebo" }, { "source" : "CANTATA-MSU", "target" : "canagliflozin" }, { "source" : "1218.3599999999999", "target" : "placebo" }, { "source" : "1218.3599999999999", "target" : "linagliptin" }, { "source" : "Fouqueray P 2014", "target" : "placebo" }, { "source" : "Fouqueray P 2014", "target" : "imeglimin" }, { "source" : "MB102-054", "target" : "pioglitazone" }, { "source" : "MB102-054", "target" : "sitagliptin" }, { "source" : "Lukashevich V 2014", "target" : "vildagliptin+glimepiride" }, { "source" : "Lukashevich V 2014", "target" : "placebo+glimepiride" }, { "source" : "Ma J 2014", "target" : "metformin" }, { "source" : "Ma J 2014", "target" : "repaglinide" }, { "source" : "Mudaliar S 2014", "target" : "placebo" }, { "source" : "Mudaliar S 2014", "target" : "dapagliflozin" }, { "source" : "Sawada T 2014", "target" : "miglitol" }, { "source" : "Sawada T 2014", "target" : "nateglinide" }, { "source" : "D1680L00006", "target" : "saxagliptin" }, { "source" : "D1680L00006", "target" : "placebo" }, { "source" : "EFFICACY", "target" : "insulin detemir" }, { "source" : "EFFICACY", "target" : "insulin glargine" }, { "source" : "SUCCESS-2", "target" : "sitagliptin" }, { "source" : "SUCCESS-2", "target" : "voglibose, miglitol" }, { "source" : "Hasche H 1999", "target" : "acarbose" }, { "source" : "Hasche H 1999", "target" : "placebo" }, { "source" : "BEGIN LOW VOLUME", "target" : "insulin degludec" }, { "source" : "BEGIN LOW VOLUME", "target" : "insulin glargine" }, { "source" : "Berndt-Zipfel C 2013", "target" : "glimepiride" }, { "source" : "Berndt-Zipfel C 2013", "target" : "vildagliptin" }, { "source" : "Exenatide-MC-GWBJ", "target" : "placebo" }, { "source" : "Exenatide-MC-GWBJ", "target" : "exenatide" }, { "source" : "SYR-322/CCT-901", "target" : "alogliptin" }, { "source" : "SYR-322/CCT-901", "target" : "placebo" }, { "source" : "GREAN", "target" : "acarbose" }, { "source" : "GREAN", "target" : "voglibose" }, { "source" : "2006-006573-24", "target" : "placebo" }, { "source" : "2006-006573-24", "target" : "insulin glargine" }, { "source" : "2006-006573-24", "target" : "NPH insulin" }, { "source" : "Rizzo MR 2004", "target" : "repaglinide" }, { "source" : "Rizzo MR 2004", "target" : "glimepiride" }, { "source" : "Rizzo MR 2005", "target" : "repaglinide" }, { "source" : "Rizzo MR 2005", "target" : "glimepiride" }, { "source" : "BEGIN", "target" : "insulin degludec" }, { "source" : "BEGIN", "target" : "insulin glargine" }, { "source" : "Derosa G 2014", "target" : "glimepiride" }, { "source" : "Derosa G 2014", "target" : "vildagliptin" }, { "source" : "Johnston PS 1994", "target" : "placebo" }, { "source" : "Johnston PS 1994", "target" : "miglitol" }, { "source" : "Zheng F 2013", "target" : "nateglinide" }, { "source" : "Zheng F 2013", "target" : "acarbose" }, { "source" : "Ji L 2014", "target" : "placebo" }, { "source" : "Ji L 2014", "target" : "dapagliflozin" }, { "source" : "Osonoi T 2014", "target" : "sitagliptin" }, { "source" : "Osonoi T 2014", "target" : "mitiglinide" }, { "source" : "Osonoi T 2014", "target" : "mitiglinide+voglibose" }, { "source" : "Derosa G 2014", "target" : "placebo" }, { "source" : "Derosa G 2014", "target" : "sitagliptin" }, { "source" : "INT131-007", "target" : "placebo" }, { "source" : "INT131-007", "target" : "INT131" }, { "source" : "INT131-007", "target" : "pioglitazone" }, { "source" : "NovoNorm 301 Chunlin Li", "target" : "repaglinide" }, { "source" : "NovoNorm 301 Chunlin Li", "target" : "metformin" }, { "source" : "Inagaki N 2014", "target" : "placebo" }, { "source" : "Inagaki N 2014", "target" : "SYR-472" }, { "source" : "3000-A6", "target" : "placebo" }, { "source" : "3000-A6", "target" : "teneligliptin" }, { "source" : "pioRAGE", "target" : "pioglitazone" }, { "source" : "pioRAGE", "target" : "glimepiride" }, { "source" : "EDGE", "target" : "sitagliptin" }, { "source" : "EDGE", "target" : "voglibose" }, { "source" : "Nyback-Nakell A 2014", "target" : "placebo" }, { "source" : "Nyback-Nakell A 2014", "target" : "glimepiride" }, { "source" : "AGEE-3705", "target" : "repaglinide+metformin" }, { "source" : "AGEE-3705", "target" : "repaglinide" }, { "source" : "Yngen M 2006", "target" : "repaglinide" }, { "source" : "Yngen M 2006", "target" : "glibenclamide" }, { "source" : "ELEGANT", "target" : "liraglutide" }, { "source" : "ELEGANT", "target" : "placebo" }, { "source" : "AWARD-6", "target" : "dulaglutide" }, { "source" : "AWARD-6", "target" : "liraglutide" }, { "source" : "Erem C 2014", "target" : "gliclazide" }, { "source" : "Erem C 2014", "target" : "metformin" }, { "source" : "Erem C 2014", "target" : "pioglitazone" }, { "source" : "EMPA-REG MET", "target" : "empagliflozin" }, { "source" : "EMPA-REG MET", "target" : "placebo" }, { "source" : "EMPA-REG METSU", "target" : "placebo" }, { "source" : "EMPA-REG METSU", "target" : "empagliflozin" }, { "source" : "1941-CL-0070", "target" : "placebo" }, { "source" : "1941-CL-0070", "target" : "ipragliflozin" }, { "source" : "Maffioli P 2013", "target" : "glibenclamide" }, { "source" : "Maffioli P 2013", "target" : "pioglitazone" }, { "source" : "Maffioli P 2013", "target" : "glibenclamide+rosuvastatin" }, { "source" : "Maffioli P 2013", "target" : "pioglitazone+rosuvastatin" }, { "source" : "EMPA-REG MDI", "target" : "placebo" }, { "source" : "EMPA-REG MDI", "target" : "empagliflozin" }, { "source" : "PRESS VI", "target" : "saroglitazar" }, { "source" : "PRESS VI", "target" : "placebo" }, { "source" : "BEGIN: Once Simple Use", "target" : "insulin degludec" }, { "source" : "EMPA-REG RENAL", "target" : "placebo" }, { "source" : "EMPA-REG RENAL", "target" : "empagliflozin" }, { "source" : "ESENDI", "target" : "placebo" }, { "source" : "ESENDI", "target" : "saxagliptin" }, { "source" : "GLORY", "target" : "metformin" }, { "source" : "GLORY", "target" : "insulin glargine" }, { "source" : "PDY6797", "target" : "lixisenatide" }, { "source" : "PDY6797", "target" : "placebo" }, { "source" : "BEGIN EASY AM", "target" : "insulin degludec" }, { "source" : "BEGIN EASY AM", "target" : "insulin glargine" }, { "source" : "BEGIN EASY PM", "target" : "insulin degludec" }, { "source" : "BEGIN EASY PM", "target" : "insulin glargine" }, { "source" : "CR018373", "target" : "placebo" }, { "source" : "CR018373", "target" : "canagliflozin" }, { "source" : "CANTATA-MP", "target" : "placebo" }, { "source" : "CANTATA-MP", "target" : "canagliflozin" }, { "source" : "CANTATA-MP", "target" : "sitagliptin" }, { "source" : "0431-102, 2008_522", "target" : "sitagliptin" }, { "source" : "0431-102, 2008_522", "target" : "pioglitazone" }, { "source" : "0431-102, 2008_522", "target" : "sitagliptin+pioglitazone" }, { "source" : "TA-7284-05", "target" : "placebo" }, { "source" : "TA-7284-05", "target" : "canagliflozin" }, { "source" : "D1690C00019", "target" : "placebo" }, { "source" : "D1690C00019", "target" : "dapagliflozin" }, { "source" : "JapicCTI-101351", "target" : "tofogliflozin" }, { "source" : "JapicCTI-101352", "target" : "tofogliflozin" }, { "source" : "SITA001", "target" : "placebo" }, { "source" : "SITA001", "target" : "sitagliptin" }, { "source" : "Kaku K 2014", "target" : "placebo" }, { "source" : "Kaku K 2014", "target" : "tofogliflozin" }, { "source" : "HARMONY 7", "target" : "albiglutide" }, { "source" : "HARMONY 7", "target" : "liraglutide" }, { "source" : "AWARD-5", "target" : "dulaglutide" }, { "source" : "AWARD-5", "target" : "sitagliptin" }, { "source" : "Van Gaal L 1991", "target" : "acarbose" }, { "source" : "Van Gaal L 1991", "target" : "placebo" }, { "source" : "CONFIDENCE", "target" : "exenatide" }, { "source" : "CONFIDENCE", "target" : "premixed insulin" }, { "source" : "CONFIDENCE", "target" : "pioglitazone" }, { "source" : "1218.5", "target" : "linagliptin" }, { "source" : "1218.5", "target" : "placebo" }, { "source" : "1218.5", "target" : "glimepiride" }, { "source" : "DURATION-3", "target" : "exenatide" }, { "source" : "DURATION-3", "target" : "insulin glargine" }, { "source" : "13631", "target" : "dulaglutide" }, { "source" : "13631", "target" : "placebo" }, { "source" : "EMPA-REG Mono", "target" : "placebo" }, { "source" : "EMPA-REG Mono", "target" : "empagliflozin" }, { "source" : "EMPA-REG Mono", "target" : "sitagliptin" }, { "source" : "Wolever TM 1995", "target" : "placebo" }, { "source" : "Wolever TM 1995", "target" : "acarbose" } ] ; 
+ var nodes = {}
+
+// Compute the distinct nodes from the links.
+links.forEach(function(link) {
+link.source = nodes[link.source] ||
+(nodes[link.source] = {name: link.source});
+link.target = nodes[link.target] ||
+(nodes[link.target] = {name: link.target});
+link.value = +link.value;
+});
+
+var width = 1000
+height = 1000;
+
+var force = d3.layout.force()
+.nodes(d3.values(nodes))
+.links(links)
+.size([width, height])
+.linkDistance(50)
+.charge(-200)
+.on("tick", tick)
+.start();
+
+var svg = d3.select("body").append("svg")
+.attr("width", width)
+.attr("height", height);
+
+var link = svg.selectAll(".link")
+.data(force.links())
+.enter().append("line")
+.attr("class", "link");
+
+var node = svg.selectAll(".node")
+.data(force.nodes())
+.enter().append("g")
+.attr("class", "node")
+.on("mouseover", mouseover)
+.on("mouseout", mouseout)
+.on("click", click)
+.on("dblclick", dblclick)
+.call(force.drag);
+
+node.append("circle")
+.attr("r", 8)
+.style("fill", "lightblue");
+
+node.append("text")
+.attr("x", 12)
+.attr("dy", ".35em")
+.style("fill", "black")
+.text(function(d) { return d.name; });
+
+function tick() {
+link
+.attr("x1", function(d) { return d.source.x; })
+.attr("y1", function(d) { return d.source.y; })
+.attr("x2", function(d) { return d.target.x; })
+.attr("y2", function(d) { return d.target.y; });
+
+node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+}
+
+function mouseover() {
+d3.select(this).select("circle").transition()
+.duration(750)
+.attr("r", 16);
+}
+
+function mouseout() {
+d3.select(this).select("circle").transition()
+.duration(750)
+.attr("r", 8);
+}
+// action to take on mouse click
+function click() {
+d3.select(this).select("text").transition()
+.duration(750)
+.attr("x", 22)
+.style("stroke-width", ".5px")
+.style("opacity", 1)
+.style("fill", "red")
+.style("font", "17.5px serif");
+d3.select(this).select("circle").transition()
+.duration(750)
+.style("fill", "red")
+.attr("r", 16)
+}
+
+// action to take on mouse double click
+function dblclick() {
+d3.select(this).select("circle").transition()
+.duration(750)
+.attr("r", 6)
+.style("fill", "red");
+d3.select(this).select("text").transition()
+.duration(750)
+.attr("x", 12)
+.style("stroke", "none")
+.style("fill", "red")
+.style("stroke", "none")
+.style("opacity", 0.9)
+.style("font", "7px serif");
+}
+
+</script>
+ </body>
